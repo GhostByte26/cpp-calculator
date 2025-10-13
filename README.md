@@ -19,6 +19,10 @@ It takes two numbers as input, validates them, and performs basic arithmetic ope
 1. Open a terminal and navigate to the project folder:
    ```bash
    cd C:\Projects\cpp\calculator
+2. g++ main.cpp -o calculator
+3. ./calculator
+
+
 
 
 
