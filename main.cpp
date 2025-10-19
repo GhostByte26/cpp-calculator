@@ -4,6 +4,23 @@
 #include <algorithm>
 #include <limits>
 
+double addNunmbers(double num1, double num2)
+{
+    return num1 + num2;
+}
+double subtractNumbers(double num1, double num2)
+{
+    return num1 - num2;
+}
+double multiplyNumbers(double num1, double num2)
+{
+    return num1 * num2;
+}
+double divideNumbers(double num1, double num2)
+{
+    return num1 / num2;
+}
+
 int main()
 {
     while (true)
@@ -13,6 +30,7 @@ int main()
         char operation;
         double num1;
         double num2;
+        double result;
 
         bool validInput = false;
         bool validInput2 = false;
@@ -60,18 +78,22 @@ int main()
         switch (operation)
         {
         case '+':
-            std::cout << num1 + num2 << "\n";
+            result = addNunmbers(num1, num2);
+            std::cout << result << "\n";
             break;
         case '-':
-            std::cout << num1 - num2 << "\n";
+            result = subtractNumbers(num1, num2);
+            std::cout << result << "\n";
             break;
         case '*':
-            std::cout << num1 * num2 << "\n";
+            result = multiplyNumbers(num1, num2);
+            std::cout << result << "\n";
             break;
         case '/':
             if (num2 != 0)
             {
-                std::cout << num1 / num2 << "\n";
+                result = divideNumbers(num1, num2);
+                std::cout << result << "\n";
             }
             else
             {

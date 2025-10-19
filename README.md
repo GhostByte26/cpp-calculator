@@ -13,8 +13,9 @@ It takes two numbers as input, validates them, and performs basic arithmetic ope
 - ➗ Division (handles division by zero gracefully)  
 - 🖥️ Simple console interface  
 - 🏃 Option to type `exit` at any point to quit the calculator  
-- 🎣 Loops to allow multiple calculations without restarting the program  
+- 🔁  Loops to allow multiple calculations without restarting the program  
 - ⬇️ Converts user input for exit/yes/no commands to lowercase (input is case-insensitive)
+- ✅ Added arithmetic functions (add, subtract, multiply, divide)
 
 ---
 
