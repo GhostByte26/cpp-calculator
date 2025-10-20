@@ -3,8 +3,9 @@
 #include <cctype>
 #include <algorithm>
 #include <limits>
+// Helper functions
 
-double addNunmbers(double num1, double num2)
+double addNumbers(double num1, double num2)
 {
     return num1 + num2;
 }
@@ -20,101 +21,107 @@ double divideNumbers(double num1, double num2)
 {
     return num1 / num2;
 }
+double getValidNumber(const std::string &prompt)
+{
+    std::string input;
+    double number;
+    bool validInput = false;
+
+    while (!validInput)
+    {
+        std::cout << prompt << "\n";
+        std::getline(std::cin, input);
+
+        // Lowercase conversion
+        std::transform(input.begin(), input.end(), input.begin(), [](unsigned char c)
+                       { return std::tolower(c); });
+
+        if (input == "exit")
+        {
+            std::cout << "Exiting calculator goodbye\n";
+            exit(0);
+        }
+        try
+        {
+            number = std::stod(input);
+            validInput = true;
+        }
+        catch (std::invalid_argument)
+        {
+            std::cout << "Invalid input. Please enter a valid number. \n";
+        }
+    }
+    return number;
+}
+// Get valid operation symbol
+char getOperation()
+{
+    char op;
+    std::cout << "Please enter the desired operation symbol(+,-,*,/)\n";
+    std::cin >> op;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // clears the buffer
+    return op;
+}
+
+// Perform operation and print result
+void performOperation(char op, double num1, double num2)
+{
+    double result;
+
+    switch (op)
+    {
+    case '+':
+        result = addNumbers(num1, num2);
+        std::cout << "The result of the sum is: " << result << '\n';
+        break;
+    case '-':
+        result = subtractNumbers(num1, num2);
+        std::cout << "The subtraction is: " << result << '\n';
+        break;
+    case '*':
+        result = multiplyNumbers(num1, num2);
+        std::cout << "The multiplication is: " << result << '\n';
+        break;
+    case '/':
+        if (num2 != 0)
+        {
+            result = divideNumbers(num1, num2);
+            std::cout << "The division is: \n";
+        }
+        else
+        {
+            std::cout << "Error: Division by zero is not allowed \n";
+        }
+        break;
+    default:
+        std::cout << "Invalid operator: Please use(+,-,*,/) \n";
+        break;
+    }
+}
+
+// Main loop
 
 int main()
 {
     while (true)
     {
-        std::string num1str;
-        std::string num2str;
-        char operation;
-        double num1;
-        double num2;
-        double result;
+        double num1 = getValidNumber("Please enter the first number or type exit to quit");
+        double num2 = getValidNumber("Please enter the second number or type exit to quit");
+        char operation = getOperation();
 
-        bool validInput = false;
-        bool validInput2 = false;
+        performOperation(operation, num1, num2);
 
-        while (!validInput) // Input validation loop for the first number and option to exit
-        {
-
-            std::cout << "Please enter the first number or type exit to quit \n";
-            getline(std::cin, num1str); // Lowercase conversion for exit check, best used with getline to capture full input
-            std::transform(num1str.begin(), num1str.end(), num1str.begin(), [](unsigned char c)
-                           { return std::tolower(c); });
-            if (num1str == "exit")
-            {
-                std::cout << "Exiting calculator goodbye!\n";
-                return 0;
-            }
-            try
-            {
-                num1 = std::stod(num1str);
-                validInput = true;
-            }
-            catch (std::invalid_argument)
-            {
-                std::cout << "Invalid input. Please enter a valid number \n";
-            }
-        }
-        while (!validInput2)
-        {
-            std::cout << "Please enter the second number \n";
-            getline(std::cin, num2str);
-            try
-            {
-                num2 = std::stod(num2str);
-                validInput2 = true;
-            }
-            catch (std::invalid_argument)
-            {
-                std::cout << "Invalid input. Please enter a valid number \n";
-            }
-        }
-        std::cout << "Please enter the operation symbol(+,-,*,/)\n";
-        std::cin.get(operation);                                            // Used to read a single character input for operation
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
-
-        switch (operation)
-        {
-        case '+':
-            result = addNunmbers(num1, num2);
-            std::cout << result << "\n";
-            break;
-        case '-':
-            result = subtractNumbers(num1, num2);
-            std::cout << result << "\n";
-            break;
-        case '*':
-            result = multiplyNumbers(num1, num2);
-            std::cout << result << "\n";
-            break;
-        case '/':
-            if (num2 != 0)
-            {
-                result = divideNumbers(num1, num2);
-                std::cout << result << "\n";
-            }
-            else
-            {
-                std::cout << " Error: Division by zero is not allowed. \n";
-            }
-            break;
-        default:
-            std::cout << "Invalid operation symbol. Please use on of (+,-,*,/)\n";
-            break;
-        }
-        // Ask to continue operations or exit
         std::string again;
-        std::cout << "Do you want to perform another calaculation? (yes/no): \n";
-        getline(std::cin, again);
+        std::cout << "Do you want to perform another calculation (yes/no)\n";
+        std::getline(std::cin, again);
         std::transform(again.begin(), again.end(), again.begin(), ::tolower);
+
         if (again == "no" || again == "exit")
         {
-            std::cout << "Exiting calculator goodbye!\n";
+            std::cout << "Exiting calculator goodbye! \n";
             break;
         }
-        std::cout << "\n";
+        std::cout << "\n"; // Prints a new line
     }
     return 0;
 }
