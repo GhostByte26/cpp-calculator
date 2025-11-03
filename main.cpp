@@ -33,30 +33,15 @@ Type "exit" at any prompt to quit.
 #include <cmath>
 #include <numbers>
 #include <iomanip>
+#include "include/add.h"
+#include "include/subtract.h"
+#include "include/multiply.h"
+#include "include/division.h"
+
 // ==========================================================
 // ===== Helper Functions (Mathematical Operations) =====
 // ==========================================================
 
-// Adds two numbers
-double addNumbers(double num1, double num2)
-{
-    return num1 + num2;
-}
-// Substract the second number from the first one
-double subtractNumbers(double num1, double num2)
-{
-    return num1 - num2;
-}
-// Multiplies two numbers
-double multiplyNumbers(double num1, double num2)
-{
-    return num1 * num2;
-}
-// Divides num1 from num2 (handled safely in main)
-double divideNumbers(double num1, double num2)
-{
-    return num1 / num2;
-}
 // Raises num1 to the power of num2
 double power(double num1, double num2)
 {
@@ -166,21 +151,21 @@ void performOperation(char op, double num1, double num2)
     switch (op)
     {
     case '+':
-        result = addNumbers(num1, num2);
+        result = add(num1, num2);
         std::cout << "The result of the sum is: " << result << '\n';
         break;
     case '-':
-        result = subtractNumbers(num1, num2);
+        result = subtract(num1, num2);
         std::cout << "The subtraction is: " << result << '\n';
         break;
     case '*':
-        result = multiplyNumbers(num1, num2);
+        result = multiply(num1, num2);
         std::cout << "The multiplication is: " << result << '\n';
         break;
     case '/':
         if (num2 != 0)
         {
-            result = divideNumbers(num1, num2);
+            result = division(num1, num2);
             std::cout << "The division is: " << result << '\n';
         }
         else
